@@ -1,21 +1,32 @@
 require('dotenv').config();
+const config = require('./config.json')
 
-const { Client, Intents } = require('discord.js');
 const TOKEN = process.env.CLIENT_TOKEN;
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const { Client, Intents } = require('discord.js');
 
+const client = new Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES
+    ]
+});
 
 client.on('ready', () => {
     console.log(`logged in as ${client.user.tag}!`);
 });
 
-client.on("message", msg => {
-  if (msg.author.bot) return
-    
-  if (msg.content === "$inspire") {
-    getQuote().then(quote => msg.channel.send(quote))
-  }
+
+client.on("messageCreate", msg => {
+    if (msg.content.startsWith(config.prefix)) return;
+
+    if (msg.content.startsWith(`${config.prefix} ping`)) {
+        msg.channel.send("pong!");
+    } else
+
+        if (msg.content.startsWith(`${config.prefix} foo`)) {
+            msg.channel.send("bar!");
+        }
 })
 
 client.login(TOKEN); //login
