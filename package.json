@@ -35,7 +35,9 @@
     "url": "https://github.com/stonycat0201/zuihou-chan/"
   },
   "keywords": [
-    "discord"
+    "discord",
+    "bot",
+    "assistant"
   ],
   "author": "stonycat",
   "license": "ISC",
