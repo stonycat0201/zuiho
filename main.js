@@ -1,7 +1,8 @@
-require('dotenv').config();
+﻿require('dotenv').config();
 
 const { Intents, Client } = require('discord.js');
 
+//Intents
 const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
@@ -9,9 +10,22 @@ const client = new Client({
     ]
 })
 
+//Prefix
+const prefix = process.env.PREFIX
 
 client.on('ready', () => {
     console.log(`logged in as ${client.user.tag}!`);
+
+    let activities = [
+        `Type with ${prefix}`,
+        `${client.guilds.cache.size} servers`,
+    ],
+        i = 0;
+
+    setInterval(() => client.user.setActivity(`${activities[i++ % activities.length]}`, {
+        type: "WATCHING"
+    }), 1000 * 60);
+
 
     const guildId = process.env.GUILD_ID
     const guild = client.guilds.cache.get(guildId)
@@ -43,11 +57,24 @@ client.on('interactionCreate', async (interaction) => {
 })
 
 client.on('messageCreate', (message) => {
-    if (message.content === 'ping') {
-        message.reply({
-            content: 'pong!!!'
-        })
-    } 
+    const args = message.content
+        .trim().slice(config.prefix.length)
+        .split(/ +/g);
+    const command = args.shift().toLowerCase();
+
+    //Handler
+    if (message.author.bot) return;
+    if (message.channel.type == 'dm') return;
+    if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
+    if (message.content.startsWith(`<@!${client.user.id}>`) || message.content.startsWith(`<@${client.user.id}>`)) return;
+
+
+    try {
+        const commandFile = require(`./commands/${command}.js`)
+        commandFile.run(client, message, args);
+    } catch (err) {
+        console.error('Erro:' + err);
+    }
 })
 
 
