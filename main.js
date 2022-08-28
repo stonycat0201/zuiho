@@ -1,77 +1,54 @@
 require('dotenv').config();
 
-const config = require('./config.json')
-const Discord = require('discord.js')
-const fs = require('fs');
-const bot = new Discord.Client({ disableEveryone: true });
-
-bot.commands = new Discord.Collection();
-bot.aliases = new Discord.Collection();
-
-const { Client, Intents } = require('discord.js');
+const { Intents, Client } = require('discord.js');
 
 const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MESSAGES
     ]
-});
-
-fs.readdir("./command/", (err, files) => {
-
-    if (err) console.log(err);
-    let jsfile = files.filter(f => f.split(".").pop() === "js");
-    if (jsfile.length <= 0) {
-        console.log("Couldn't find commands.");
-        return;
-    }
-
-
-    jsfile.forEach((f, i) => {
-        let props = require(`./commands/${f}`);
-
-        console.log(`${f} loaded!`);
-
-        bot.commands.set(props.help.name, props);
-
-        props.help.aliases.forEach(alias => {
-            bot.aliases.set(alias, props.help.name);
-
-        });
-    });
 })
 
-bot.on("ready", async () => {
-    console.log(`${bot.user.username} is online on ${bot.guilds.size} servers!`);
-    bot.user.setActivity(`In Development`);
-    bot.user.setStatus('online');
 
-    bot.on("Createmessage", async message => {
-        if (message.author.bot) return;
-        if (message.channel.type === "dm") return;
-        let prefix = config.prefix
-        let messageArray = message.content.split(" ");
-        let args = message.content.slice(prefix.length).trim().split(/ +/g);
-        let cmd = args.shift().toLowerCase();
-        let commandfile;
+client.on('ready', () => {
+    console.log(`logged in as ${client.user.tag}!`);
 
-        if (bot.commands.has(cmd)) {
-            commandfile = bot.commands.get(cmd);
-        } else if (bot.aliases.has(cmd)) {
-            commandfile = bot.commands.get(bot.aliases.get(cmd));
-        }
+    const guildId = process.env.GUILD_ID
+    const guild = client.guilds.cache.get(guildId)
 
-        if (!message.content.startsWith(prefix)) return;
+    let commands
 
-
-        try {
-            commandfile.run(bot, message, args);
-
-        } catch (e) {
-        }
+    if (guild) {
+        commands = guild.commands
+    } else {
+        commands = client.application.commands
     }
-    )
+
+    commands.create({
+        name: 'ping',
+        description: 'Replies with the "pong!!!".'
+    })
 })
 
-const TOKEN = process.env.CLIENT_TOKEN;
-client.login(TOKEN); //login
+client.on('interactionCreate', async (interaction) => {
+    if (!interaction.isCommand()) return
+
+    const { commandName, options } = interaction
+
+    if (commandName === 'ping') {
+        interaction.reply({
+            content: 'Pong!!!',
+        })
+    }
+})
+
+client.on('messageCreate', (message) => {
+    if (message.content === 'ping') {
+        message.reply({
+            content: 'pong!!!'
+        })
+    } 
+})
+
+
+client.login(process.env.CLIENT_TOKEN); //login 
