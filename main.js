@@ -1,12 +1,18 @@
 ﻿require('dotenv').config();
 
+const express = require('express');
+const app = express();
+
 const { Intents, Client } = require('discord.js');
 
 //Intents
 const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES
+        Intents.FLAGS.GUILD_VOICE_STATES,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        Intents.FLAGS.DIRECT_MESSAGES
     ]
 })
 

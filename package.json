@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "@discordjs/rest": "^1.1.0",
+    "@discordjs/voice": "^0.11.0",
     "asynckit": "^0.4.0",
     "axios": "^0.26.0",
     "combined-stream": "^1.0.8",
@@ -32,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/stonycat0201/zuihou-chan/"
+    "url": "https://github.com/stonycat0201/zuiho/"
   },
   "keywords": [
     "discord",
@@ -42,7 +43,7 @@
   "author": "stonycat",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stonycat0201/zuihou-chan/issues"
+    "url": "https://github.com/stonycat0201/zuiho/issues"
   },
-  "homepage": "https://github.com/stonycat0201/zuihou-chan/#readme"
+  "homepage": "https://github.com/stonycat0201/zuiho/#readme"
 }
