@@ -1,5 +1,6 @@
 /node_modules/
 .env
+.vs
 config.json
 desktop.ini
 json.sqlite
