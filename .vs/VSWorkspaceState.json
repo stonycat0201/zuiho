@@ -1,8 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\commands"
+    "\\src",
+    "\\src\\commands",
+    "\\src\\commands\\development",
+    "\\src\\events",
+    "\\src\\handlers",
+    "\\src\\utils",
+    "\\src\\zuihouAI"
   ],
-  "SelectedNode": "\\main.js",
+  "SelectedNode": "\\src\\zuihouAI\\prompt.txt",
   "PreviewInSolutionExplorer": false
 }
