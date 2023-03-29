@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@discordjs/voice": "^0.15.0",
-    "@google-cloud/dialogflow": "^5.5.0",
+    "@google-cloud/dialogflow": "^5.7.0",
     "@google-cloud/dialogflow-cx": "^3.4.1",
     "@types/node": "^18.15.11",
     "ascii-table": "^0.0.9",
