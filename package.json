@@ -11,7 +11,7 @@
     "ascii-table": "^0.0.9",
     "asynckit": "^0.4.0",
     "axios": "^1.6.0",
-    "better-sqlite3": "^8.4.0",
+    "better-sqlite3": "^9.1.1",
     "chalk": "^5.2.0",
     "combined-stream": "^1.0.8",
     "delayed-stream": "^1.0.0",
