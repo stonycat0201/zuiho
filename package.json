@@ -6,7 +6,7 @@
   "dependencies": {
     "@discordjs/voice": "^0.16.0",
     "@google-cloud/dialogflow": "^6.2.0",
-    "@google-cloud/dialogflow-cx": "^3.4.1",
+    "@google-cloud/dialogflow-cx": "^4.4.0",
     "@types/node": "^18.15.11",
     "ascii-table": "^0.0.9",
     "asynckit": "^0.4.0",
