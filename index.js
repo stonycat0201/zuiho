@@ -1,19 +1,19 @@
-﻿require('dotenv').config();
+﻿import dotenv from 'dotenv';
+dotenv.config();
 
-const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
-const { readdirSync } = require("fs");
+import chalk from 'chalk';
+import { Client, GatewayIntentBits, Partials, Collection } from 'discord.js';
+import { readdirSync } from 'fs';
+import path from 'path';
 
-const chalk = require("chalk")
-
-//Bot Permission
+// Bot Permission
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.MessageContent
     ],
     shards: "auto",
     partials: [
@@ -32,17 +32,17 @@ const client = new Client({
     }
 });
 
-module.exports = client;
-
-//Handlers load
+// Handlers load
 client.commands = new Collection();
 client.events = new Collection();
 
-readdirSync('./src/handlers').forEach((handler) => {
-    require(`./src/handlers/${handler}`)(client);
+const handlersPath = path.resolve('./src/handlers');
+readdirSync(handlersPath).forEach(async (handler) => {
+    const handlerModule = await import(`./src/handlers/${handler}`);
+    handlerModule.default(client);
 });
 
-//Login
+// Login
 const token = process.env.CLIENT_TOKEN;
 
 client.login(token)
@@ -52,7 +52,7 @@ client.login(token)
         return process.exit();
     });
 
-// Handle errors:
+// Handle errors
 process.on('unhandledRejection', async (err, promise) => {
     console.error(`[ANTI-CRASH] Unhandled Rejection: ${err}`.red);
     console.error(promise);

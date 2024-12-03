@@ -1,22 +1,23 @@
-const Discord = require('discord.js')
-const { EmbedBuilder } = require('discord.js')
+import { EmbedBuilder } from 'discord.js';
 
-module.exports = {
-    name : 'Ping',
+const command = {
+    name: 'Ping',
     data: {
-        name: "ping",
-        description: "Initial response test for zuiho",
+        name: 'ping',
+        description: 'Initial response test for zuiho',
     },
     allowDM: true,
     
     run: async (interaction, client) => {
         const Embed = new EmbedBuilder()
-            .setColor("111111")
-            .setTitle(`Client Ping : ${client.ws.ping}`)
+            .setColor('111111')
+            .setTitle(`Client Ping: ${client.ws.ping}`);
 
         await interaction.reply({
             embeds: [Embed],
-            ephemeral: true
-        })
-    }
-}
+            ephemeral: true,
+        });
+    },
+};
+
+export default command;

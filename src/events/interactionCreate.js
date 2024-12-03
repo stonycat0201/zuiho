@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+import { EmbedBuilder, PermissionsBitField } from 'discord.js';
 
 async function handleCommand(interaction, client) {
     const command = client.commands.get(interaction.commandName);
@@ -37,7 +37,7 @@ function handleSelectMenu(interaction, client) {
     // Handle Select Menu
 }
 
-module.exports = {
+const interactionCreate = {
     name: "interactionCreate",
     once: false,
     async execute(interaction, client) {
@@ -52,3 +52,5 @@ module.exports = {
         }
     },
 };
+
+export default interactionCreate;

@@ -1,5 +1,5 @@
 /*
-    This file contain trained Zuihou chat bot
+    This file contains the trained Zuihou chat bot
 */
 
 // Use paid OpenAI GPT-3 for initial functionality testing!
@@ -21,9 +21,11 @@ async function execute(prompt, openai, message) {
     message.reply(`${gptResponse.data.choices[0].text.substring(8)}`);
 
     return prompt += `${gptResponse.data.choices[0].text}\n`;
-};
+}
 
-module.exports = {
+const zuihouAI = {
     name: "zuihouAI",
     execute
-}
+};
+
+export default zuihouAI;
