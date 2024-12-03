@@ -9,4 +9,5 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    target-branch: "2.0-dev"
     open-pull-requests-limit: 10
